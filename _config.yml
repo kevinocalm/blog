@@ -11,7 +11,7 @@ title:            Cave
 tagline:          'A Jekyll theme'
 description:      'A blog owned by kevino to post vulns he found'
 url:              http://hyde.getpoole.com
-baseurl:          /
+baseurl:          /blog/
 
 author:
   name:           'kevinoclam'
