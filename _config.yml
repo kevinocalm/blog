@@ -1,0 +1,38 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+#relative_permalinks: true
+
+# Setup
+title:            Cave
+tagline:          'A Jekyll theme'
+description:      'A blog owned by kevino to post vulns he found'
+url:              http://hyde.getpoole.com
+baseurl:          /
+
+author:
+  name:           'kevinoclam'
+  url:            https://twitter.com/mdo
+
+paginate:         5
+
+# Custom vars
+version:          2.1.0
+
+github:
+  repo:           https://github.com/poole/hyde
+# Gems
+gems:
+  - jekyll-paginate
+  - jekyll-gist
+  - redcarpet
+
+markdown:         kramdown
+highlighter:      rouge
+
+# Permalinks
+permalink:        pretty
+# relative_permalinks: true
