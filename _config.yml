@@ -7,15 +7,15 @@ permalink:        pretty
 #relative_permalinks: true
 
 # Setup
-title:            Cave
-tagline:          'A Jekyll theme'
-description:      'A blog owned by kevino to post vulns he found'
-url:              http://hyde.getpoole.com
+title:            储藏间
+tagline:          '真的就是个储藏间'
+description:      '是个用来放洞的储藏间'
+url:              http://kevinoclam.github.io/blog/
 baseurl:          /blog/
 
 author:
   name:           'kevinoclam'
-  url:            https://twitter.com/mdo
+  url:            http://nothing.nothing
 
 paginate:         5
 
@@ -23,7 +23,7 @@ paginate:         5
 version:          2.1.0
 
 github:
-  repo:           https://github.com/poole/hyde
+  repo:           
 # Gems
 gems:
   - jekyll-paginate

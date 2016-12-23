@@ -4,8 +4,8 @@ title: About
 ---
 
 
-**Owned by kevinoclam**
+**kevino的储藏间**
 
-**Used for vulns public**
+**用来放洞**
 
-**Powered by jekyll with hyde**
+**用的jekyll，hyde主题**
