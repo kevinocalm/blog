@@ -31,6 +31,7 @@ Dotclear是一个基于GUN GPLv2的开源博客发布应用。在2002年由Olivi
 Dotclear v2.9.1 有一个反射型xss
 
 /admin/media.php
+
 line 34 $link_type = !empty($_REQUEST['link_type']) ? $_REQUEST['link_type'] : null;
 line 62 $q = isset($_REQUEST['q']) ? $_REQUEST['q'] : null;
 
