@@ -36,7 +36,7 @@ line 34 $link_type = !empty($_REQUEST['link_type']) ? $_REQUEST['link_type'] : n
 
 line 62 $q = isset($_REQUEST['q']) ? $_REQUEST['q'] : null;
 
-link_type 跟 q 参数缺少过滤
+link_type 跟 q 参数缺少安全过滤
 
 **PoC:**
 
