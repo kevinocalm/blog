@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Dotclear v2.9.1反射型xss
+title: Dotclear v2.9.1反射型xss [CVE-2016-6523]
 ---
 
 发现者: 陈瑞琦 
