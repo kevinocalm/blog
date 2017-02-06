@@ -1,6 +1,6 @@
 ---
 layout: post
-title: B2evolution v6.4.7 forum XSS [CVE-2016-6821]
+title: B2evolution v6.4.7 forum XSS [CVE-2016-7149]
 ---
 
 发现者: 陈瑞琦 
