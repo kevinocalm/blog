@@ -1,0 +1,38 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+#relative_permalinks: true
+
+# Setup
+title:            储藏间
+tagline:          '真的就是个储藏间'
+description:      '是个用来放洞的储藏间'
+url:              http://kevinoclam.github.io/blog/
+baseurl:          /blog/
+
+author:
+  name:           'kevinoclam'
+  url:            http://nothing.nothing
+
+paginate:         5
+
+# Custom vars
+version:          2.1.0
+
+github:
+  repo:           
+# Gems
+gems:
+  - jekyll-paginate
+  - jekyll-gist
+  - redcarpet
+
+markdown:         kramdown
+highlighter:      rouge
+
+# Permalinks
+permalink:        pretty
+# relative_permalinks: true
