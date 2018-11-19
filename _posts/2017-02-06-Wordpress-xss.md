@@ -38,8 +38,9 @@ lack of xss filte
 any php/ file with evil name can cause xss 
 
 **PoC:**
-
+`code`
+<pre><code>
 test<img src="0" onerror="alert(1)">.php
-
+<pre><code>
 **Fix:**
 

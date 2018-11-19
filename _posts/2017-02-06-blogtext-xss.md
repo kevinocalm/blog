@@ -36,8 +36,9 @@ line 142 $qstring = remove_url_param('p');
 line 358 function remove_url_param($param)
 <pre><code>
 **PoC:**
-
+`code`
+<pre><code>
 test<img src="0" onerror="alert(1)">.php
-
+<pre><code>
 **Fix:**
 

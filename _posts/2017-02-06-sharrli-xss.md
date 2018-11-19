@@ -52,7 +52,6 @@ if (isset($_GET['post'])) {
 修复处理，添加 $redir = '&username='. urlencode($_POST['login']);替换原本无处理的$_POST['login']
 **PoC:**
 
-test<img src="0" onerror="alert(1)">.php
 
 **Fix:**
 
