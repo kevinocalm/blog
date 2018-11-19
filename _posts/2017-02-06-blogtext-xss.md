@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Possible short name access to ACP backups on Windows servers in MyBB version 1.8.7 [CVE-2016-9418]
+title: XSS  in Blogtext version 3.7.6 [CVE-2016-9418]
 ---
 
 发现者: 陈瑞琦 
@@ -23,27 +23,21 @@ b2evolutioe is a content and community management system written in PHP and back
 b2evolution originally started as a multi-user multi-blog engine when Fran?ois Planque forked b2evolution from version 0.6.1 of b2/cafelog in 2003.[2] A more widely known fork of b2/cafelog is WordPress. b2evolution is available in web host control panels as a "one click install" web app.[3](Wiki)
 
 **细节:** 
-The backup file is public to everyone if the webadmin choose to store it on the server.
-
-But the protect code in 
-
-./inc/tasks/backupdb.php: 
-
+./inc/html.php
 `code`
 <pre><code>
-$file = MYBB_ADMIN_DIR.'backups/backup_'.date("_Ymd_His_").random_str(16);
+line 133 function lien_pagination()
+
+line 142 $qstring = remove_url_param('p');
 <pre><code>
-
-can be bypass in win server.
-
-Using 'backup~1.gz' to get 'backup__20160822_093242_XXKZ8Da9tfv8hm3R.sql.gz'.
-
-Anyone can use a url like 'http://192.168.204.128/mybb/admin/backups/backup~1.gz' to get the backup file.
-
+./inc/util.php
+`code`
+<pre><code>
+line 358 function remove_url_param($param)
+<pre><code>
 **PoC:**
 
-'http://192.168.204.128/mybb/admin/backups/backup~1.gz'
+test<img src="0" onerror="alert(1)">.php
 
 **Fix:**
 
-https://github.com/b2evolution/b2evolution/commit/dd975fff7fce81bf12f9c59edb1a99475747c83c
