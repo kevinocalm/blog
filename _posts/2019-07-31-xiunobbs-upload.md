@@ -23,10 +23,13 @@ https://bbs.xiuno.com/down/xiunobbs_4.0.4.zip
 可以上传html文件，后台会将文件存储，并且修改后缀名为 .__html
 
 如下图所示
+![avatar](https://kevinoclam.github.io/blog/images/XIUNOBBS01.png)
 
 但是上传有恶意js代码的html文件，服务器（apache）仍然会解析.__html格式内的js代码
 
 效果如下图所示
+
+![avatar](https://kevinoclam.github.io/blog/images/XIUNOBBS02.png)
 
 
 #三.漏洞利用
