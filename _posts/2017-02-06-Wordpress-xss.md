@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Possible short name access to ACP backups on Windows servers in MyBB version 1.8.7 [CVE-2016-9418]
+title: XSS  in wordpress version 4.7.2 [CVE-2016-9418]
 ---
 
 发现者: 陈瑞琦 
@@ -23,27 +23,24 @@ b2evolutioe is a content and community management system written in PHP and back
 b2evolution originally started as a multi-user multi-blog engine when Fran?ois Planque forked b2evolution from version 0.6.1 of b2/cafelog in 2003.[2] A more widely known fork of b2/cafelog is WordPress. b2evolution is available in web host control panels as a "one click install" web app.[3](Wiki)
 
 **细节:** 
-The backup file is public to everyone if the webadmin choose to store it on the server.
+Just like CVE-2017-5490
 
-But the protect code in 
+/wp-admin/plugin-editor.php
 
-./inc/tasks/backupdb.php: 
-
+line 262
 `code`
 <pre><code>
-$file = MYBB_ADMIN_DIR.'backups/backup_'.date("_Ymd_His_").random_str(16);
+<li<?php echo $file == $plugin_file ? ' class="highlight"' : ''; ?>><a href="plugin-editor.php?file=<?php echo urlencode( $plugin_file ) ?>&amp;plugin=<?php echo urlencode( $plugin ) ?>"><?php echo $plugin_file ?></a></li>
+para $plugin_file in <?php echo $plugin_file ?> 
 <pre><code>
+lack of xss filte
 
-can be bypass in win server.
-
-Using 'backup~1.gz' to get 'backup__20160822_093242_XXKZ8Da9tfv8hm3R.sql.gz'.
-
-Anyone can use a url like 'http://192.168.204.128/mybb/admin/backups/backup~1.gz' to get the backup file.
+any php/ file with evil name can cause xss 
 
 **PoC:**
-
-'http://192.168.204.128/mybb/admin/backups/backup~1.gz'
-
+`code`
+<pre><code>
+test<img src="0" onerror="alert(1)">.php
+<pre><code>
 **Fix:**
 
-https://github.com/b2evolution/b2evolution/commit/dd975fff7fce81bf12f9c59edb1a99475747c83c
