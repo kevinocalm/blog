@@ -1,23 +1,30 @@
-#一.漏洞摘要
-##漏洞名称
+**一.漏洞摘要**
+
+**漏洞名称**
+
 xiunobbs 4.0.4版本，前台文件上传
 
-##日期
+**日期**
+
 2019-07-31
 
-##发现者
+**发现者**
+
 [陈瑞琦，陈辉亮](https://www.codesafe.cn/)
 
-##产品首页
-bbs.xiuno.com
+**产品首页**
 
-##获取连接
-https://bbs.xiuno.com/down/xiunobbs_4.0.4.zip
+[http://bbs.xiuno.com](http://bbs.xiuno.com)
 
-##影响版本
+**获取连接**
+
+[https://bbs.xiuno.com/down/xiunobbs_4.0.4.zip](https://bbs.xiuno.com/down/xiunobbs_4.0.4.zip)
+
+**影响版本**
+
 4.0.4 及之前版本
 
-#二.漏洞描述
+**二.漏洞描述**
 
 在普通用户发帖功能处，上传附件功能
 可以上传html文件，后台会将文件存储，并且修改后缀名为 .__html
@@ -32,7 +39,8 @@ https://bbs.xiuno.com/down/xiunobbs_4.0.4.zip
 ![avatar](https://kevinoclam.github.io/blog/images/XIUNOBBS02.png)
 
 
-#三.漏洞利用
+**三.漏洞POC**
+
 xss.html
 
 ```
@@ -42,4 +50,4 @@ xss.html
 </html>
 ```
 
-#四.参考信息
+
