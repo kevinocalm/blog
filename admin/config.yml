@@ -1,5 +1,6 @@
 backend:
   name: github
+  repo: kevinoclam/blog
   branch: master # 默认是 master 分支
 publish_mode: editorial_workflow
 media_folder: "images/uploads" 
