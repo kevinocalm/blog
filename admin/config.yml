@@ -2,7 +2,6 @@ backend:
   name: github
   branch: master # 默认是 master 分支
 publish_mode: editorial_workflow
-media_folder: "images/uploads"
 media_folder: "images/uploads" 
 public_folder: "images/uploads"
 collections:
